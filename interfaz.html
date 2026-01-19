@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introducción a Microsoft Excel 365</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #217346 0%, #2b8856 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .intro {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .tab-button {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #217346 0%, #2b8856 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .tab-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(33, 115, 70, 0.4);
+        }
+        
+        .tab-button.active {
+            background: linear-gradient(135deg, #185c37 0%, #1f6b42 100%);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        }
+        
+        .content-section {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .component-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #217346;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .component-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        
+        .component-card h3 {
+            color: #217346;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .component-card .icon {
+            font-size: 1.2em;
+        }
+        
+        .component-image {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border-radius: 8px;
+            margin: 15px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 2px solid #e0e0e0;
+        }
+        
+        .component-details {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #217346;
+            color: #555;
+        }
+        
+        .component-card.expanded .component-details {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                max-height: 0;
+            }
+            to {
+                opacity: 1;
+                max-height: 1000px;
+            }
+        }
+        
+        .component-card.expanded h3::after {
+            content: " ▼";
+            font-size: 0.8em;
+        }
+        
+        .component-card:not(.expanded) h3::after {
+            content: " ▶";
+            font-size: 0.8em;
+        }
+        
+        .ribbon-tabs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .ribbon-tab {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #217346;
+            transition: all 0.3s ease;
+        }
+        
+        .ribbon-tab:hover {
+            background: #f0f8f4;
+            transform: scale(1.05);
+        }
+        
+        .ribbon-tab h4 {
+            color: #217346;
+            margin-bottom: 8px;
+        }
+        
+        .tips-list {
+            background: #fff9e6;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #ffd700;
+            margin-top: 20px;
+        }
+        
+        .tips-list h3 {
+            color: #e69500;
+            margin-bottom: 15px;
+        }
+        
+        .tips-list li {
+            margin-left: 20px;
+            margin-bottom: 10px;
+            color: #666;
+        }
+        
+        footer {
+            background: white;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .search-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #217346;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(33, 115, 70, 0.3);
+        }
+        
+        .highlight {
+            background: yellow;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Introducción a Microsoft Excel 365</h1>
+			<h1>INTERFAZ</h1>        
+        </header>
+        
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 Buscar en la guía...">
+        </div>
+        
+        <div class="intro">
+            <h2>Introducción</h2>
+            <p>Excel 365 es la versión basada en suscripción de Microsoft Excel que se actualiza continuamente con nuevas características. Su interfaz está diseñada para facilitar el trabajo con hojas de cálculo, análisis de datos y creación de gráficos.</p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="tab-button active" onclick="showTab('componentes')">🖥️ Componentes Principales</button>          
+            <button class="tab-button" onclick="showTab('consejos')">💡 Consejos y Trucos</button>
+        </div>
+        
+        <div id="componentes" class="content-section active">
+            <h2>Componentes Principales de la Interfaz</h2>
+            
+            <div class="component-card" onclick="toggleCard(this)">
+                <h3><span class="icon">🏷️</span> Barra de Título</h3>
+                <div class="component-details">                 
+                    <p>Ubicada en la parte superior de la ventana, muestra el nombre del archivo actual seguido de "Excel".</p>
+					<img src="images/BarraTitulo.png" alt="Barra de Título" class="component-image" title="Barra de Título" style="display: block; margin: 0 auto;  margin-top: 15px;">
+                </div>
+            </div>
+            
+            <div class="component-card" onclick="toggleCard(this)">
+                <h3><span class="icon">⚡</span> Barra de Herramientasde Acceso Rápido</h3>
+                <div class="component-details">
+                    <p>Situada encima o debajo de la cinta de opciones, contiene accesos directos a comandos utilizados frecuentemente como Guardar, Deshacer y Rehacer. Puedes personalizarla agregando los comandos que más uses.</p>
+					<img src="images/BarraAccesoRapido.png" alt="Barra de Acceso Rápido" class="component-image" title="Barra de Acceso Rápido" style="display: block; margin: 0 auto;  margin-top: 15px;">
+                </div>
+            </div>
+            
+            <div class="component-card" onclick="toggleCard(this)">
+                <h3><span class="icon">🎀</span> Cinta de Opciones (Ribbon)</h3>
+                <div class="component-details">               
+                    <p>Es el área principal de comandos organizada en pestañas temáticas, estas son algunas:</p>
+                    <div class="ribbon-tabs">
+                        <div class="ribbon-tab">
+                            <h4>Inicio</h4>
+                            <p>Herramientas de formato, fuentes, alineación y estilos</p>
+                        </div>
+                        <div class="ribbon-tab">
+                            <h4>Insertar</h4>
+                            <p>Tablas, gráficos, imágenes, formas e iconos</p>
+                        </div>
+                        <div class="ribbon-tab">
+                            <h4>Diseño de página</h4>
+                            <p>Márgenes, orientación y temas visuales</p>
+                        </div>
+                        <div class="ribbon-tab">
+                            <h4>Fórmulas</h4>
+                            <p>Biblioteca de funciones y auditoría</p>
+                        </div>
+                        <div class="ribbon-tab">
+                            <h4>Datos</h4>
+                            <p>Importar, ordenar, filtrar y validar datos</p>
+                        </div>
+                        <div class="ribbon-tab">
+                            <h4>Revisar</h4>
+                            <p>Ortografía, comentarios y protección</p>
+                        </div>
+                        <div class="ribbon-tab">
+                            <h4>Vista</h4>
+                            <p>Modos de visualización y zoom</p>
+                        </div>
+                        <div class="ribbon-tab">
+                            <h4>Ayuda</h4>
+                            <p>Recursos de soporte y búsqueda</p>
+                        </div>
+                    </div>
+					<img src="images/CintaOpciones.png" alt="Cinta de Opciones" class="component-image" title="Cinta de Opciones" style="display: block; margin: 0 auto; margin-top: 15px;">
+                </div>
+            </div>
+            
+            <div class="component-card" onclick="toggleCard(this)">
+                <h3><span class="icon">📝</span> Cuadro de Nombres</h3>
+                <div class="component-details">                    
+                    <p>Ubicado a la izquierda debajo de la cinta de opciones, muestra la referencia de la celda activa (por ejemplo, A1, B5). También puedes usarlo para navegar rápidamente escribiendo una referencia de celda o para asignar nombres a rangos.</p>
+					<img src="images/CuadroNombres.png" alt="Cuadro de Nombres" class="component-image" title="Cuadro de Nombres" style="display: block; margin: 0 auto; margin-top: 15px;">
+                </div>
+            </div>
+            
+            <div class="component-card" onclick="toggleCard(this)">
+                <h3><span class="icon">🔢</span> Barra de Fórmulas</h3>
+                <div class="component-details">                    
+                    <p>Situada junto al cuadro de nombres, muestra el contenido de la celda activa. Aquí puedes escribir o editar datos y fórmulas. Incluye botones para cancelar, aceptar e insertar funciones.</p>
+					<img src="images/BarraFormulas.png" alt="Barra de Fórmulas" class="component-image" title="Barra de Fórmulas" style="display: block; margin: 0 auto; margin-top: 15px;">
+                </div>
+            </div>
+            
+            <div class="component-card" onclick="toggleCard(this)">
+                <h3><span class="icon">📊</span> Área de Trabajo (Hoja de Cálculo)</h3>
+                <div class="component-details">                    
+                    <p>Es la cuadrícula principal donde se introducen y manipulan los datos. Está compuesta por:</p>
+                    <ul>
+                        <li><strong>Columnas:</strong> Identificadas con letras (A, B, C, etc.)</li>
+                        <li><strong>Filas:</strong> Identificadas con números (1, 2, 3, etc.)</li>
+                        <li><strong>Celdas:</strong> La intersección de una columna y una fila (por ejemplo, C5)</li>
+                        <li><strong>Celda activa:</strong> La celda seleccionada actualmente, resaltada con un borde más grueso</li>
+                    </ul>
+					<img src="images/AreaTrabajo.png" alt="Área de Trabajo" class="component-image" title="Área de Trabajo" style="display: block; margin: 0 auto; margin-top: 15px;">
+                </div>
+            </div>
+            
+            <div class="component-card" onclick="toggleCard(this)">
+                <h3><span class="icon">📑</span> Pestañas de Hojas</h3>
+                <div class="component-details">                    
+                    <p>Ubicadas en la parte inferior de la ventana, permiten navegar entre diferentes hojas dentro del mismo libro de trabajo. Puedes agregar, eliminar, renombrar y reorganizar hojas desde aquí.</p>
+					<img src="images/PestañasHojas.png" alt="Pestañas de Hojas" class="component-image" title="Pestañas de Hojas" style="display: block; margin: 0 auto; margin-top: 15px;">
+                </div>
+            </div>
+            
+            <div class="component-card" onclick="toggleCard(this)">
+                <h3><span class="icon">📊</span> Barra de Estado</h3>
+                <div class="component-details">                    
+                    <p>En la parte inferior de la ventana, muestra información sobre el documento actual como el modo de edición, zoom y cálculos rápidos de datos seleccionados (suma, promedio, cuenta). Puedes personalizarla haciendo clic derecho sobre ella.</p>
+					<img src="images/BarraEstado.png" alt="Barra de Estado" class="component-image" title="Barra de Estado" style="display: block; margin: 0 auto; margin-top: 15px;">
+                </div>
+            </div>
+            
+        </div>
+        
+        <div id="consejos" class="content-section">
+            <h2>Consejos para Navegar la Interfaz</h2>
+            
+            <div class="tips-list">
+                <h3>💡 Trucos Esenciales</h3>
+                <ul>
+                    <li><strong>Ctrl + F1:</strong> Muestra u oculta la cinta de opciones y maximiza el espacio de trabajo</li>
+                    <li><strong>Clic derecho:</strong> Accede a un menú contextual con opciones relevantes en cualquier celda</li>
+                    <li><strong>Ctrl + Inicio:</strong> Vuelve rápidamente a la celda A1</li>
+                    <li><strong>Personalización:</strong> Agrega tus comandos favoritos a la barra de herramientas de acceso rápido</li>
+                    <li><strong>Pestañas contextuales:</strong> Explora las que aparecen al seleccionar elementos específicos como gráficos o tablas</li>
+                </ul>
+            </div>
+            
+            <div class="component-card" style="margin-top: 20px;">
+                <h3><span class="icon">🎯</span> Conclusión</h3>
+                <p>La interfaz de Excel 365 está diseñada para ser intuitiva y accesible, organizando miles de funciones en categorías lógicas. Con la práctica, navegar entre sus diferentes componentes se vuelve natural, permitiéndote aprovechar todo el poder de esta herramienta para análisis y gestión de datos.</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>📚 Guía Interactiva de Excel 365 | Haz clic en cada componente para obtener más información</p>
+        </footer>
+    </div>
+    
+    <script>
+        function showTab(tabName) {
+            const sections = document.querySelectorAll('.content-section');
+            const buttons = document.querySelectorAll('.tab-button');
+            
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        function toggleCard(card) {
+            card.classList.toggle('expanded');
+        }
+        
+        // Funcionalidad de búsqueda
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.component-card');
+            
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    if (searchTerm.length > 2) {
+                        card.classList.add('expanded');
+                    }
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            if (searchTerm === '') {
+                cards.forEach(card => {
+                    card.style.display = 'block';
+                    card.classList.remove('expanded');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
